@@ -1,0 +1,16 @@
+local frame = script.Parent:WaitForChild("Frame")
+local kapatButonu = frame:WaitForChild("KapatButonu")
+
+-- Kapatma düğmesine basınca menüyü gizle
+kapatButonu.MouseButton1Click:Connect(function()
+	frame.Visible = false
+end)
+
+-- İPUCU: Menüyü tekrar açmak için klavyeden bir tuş atayabilirsin (Örn: "M" tuşu)
+local UserInputService = game:GetService("UserInputService")
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if not gameProcessed and input.KeyCode == Enum.KeyCode.M then
+		frame.Visible = not frame.Visible -- M tuşuna basınca açılır/kapanır
+	end
+end)
