@@ -1,0 +1,21 @@
+local block = script.Parent
+local prompt = block:WaitForChild("ProximityPrompt")
+local itemStorage = game:GetService("ReplicatedStorage")
+
+-- AYAR: Buraya ReplicatedStorage içindeki eşyanın tam adını yaz
+local itemName = "Kilic" 
+
+prompt.Triggered:Connect(function(player)
+	-- Eşyanın daha önce alınıp alınmadığını kontrol et
+	local backpack = player:FindFirstChild("Backpack")
+	local character = player.Character
+	
+	if backpack and not backpack:FindFirstChild(itemName) and not character:FindFirstChild(itemName) then
+		-- Eşyayı kopyala ve oyuncuya ver
+		local itemCopy = itemStorage:FindFirstChild(itemName):Clone()
+		itemCopy.Parent = backpack
+		print(player.Name .. " isimli oyuncuya " .. itemName .. " verildi.")
+	else
+		print("Oyuncuda bu eşya zaten var!")
+	end
+end)
