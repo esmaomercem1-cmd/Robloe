@@ -1,0 +1,24 @@
+local player = game.Players.LocalPlayer
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local frame = script.Parent:WaitForChild("Frame") -- Menü çerçevesi
+
+-- Menüdeki tüm butonları kontrol et
+for _, button in pairs(frame:GetChildren()) do
+	if button:IsA("TextButton") then
+		button.MouseButton1Click:Connect(function()
+			local itemName = button.Name -- Butonun adı eşya adı olmalı
+			local item = replicatedStorage:FindFirstChild(itemName)
+			
+			if item then
+				-- Sunucuya eşya alma isteği gönder (RemoteEvent kullanılması önerilir)
+				-- Şimdilik basitçe çantada olup olmadığını kontrol edelim:
+				local backpack = player:FindFirstChild("Backpack")
+				if backpack and not backpack:FindFirstChild(itemName) then
+					-- NOT: Gerçek bir oyunda eşya verme işlemi sunucu tarafında (Script) yapılmalıdır.
+					-- Bu sadece basit bir mantık örneğidir.
+					print(itemName .. " alındı!")
+				end
+			end
+		end)
+	end
+end
